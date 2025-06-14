@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{{>header}}
+
+<style>
+  /* Base styles */
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+  }
+
+  /* Layout container to use full viewport height */
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    margin-top: 40px;
+    flex: 1;
+    padding: 2rem 1rem;
+  }
+
+  /* Container for account page - sidebar + main content */
+  .account-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    background: url("productimage/sky1.jpg");
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    /* Sidebar on right using row-reverse */
+    flex-direction: row-reverse;
+    margin-bottom: 80px;
+  }
+  .search-bar-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.search-form {
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+}
+
+
+  /* Sidebar styling */
+  .account-sidebar {
+    flex: 1 1 100px;
+    border-left: 1px solid #ddd;
+    padding-left: 1.5rem;
+    min-width: 100px;  /* Reduced width */
+    text-align: left;
+  }
+
+  .account-sidebar h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: #08509ee4;
+    border-bottom: 2px solid #08509ee4;
+    padding-bottom: 0.5rem;
+  }
+
+  .account-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .account-sidebar li {
+    margin: 0.75rem 0;
+  }
+
+  .account-sidebar a {
+    text-decoration: none;
+    color: #08509ee4;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  /* Hover & focus states for sidebar links */
+  .account-sidebar a:hover,
+  .account-sidebar a:focus {
+    color: #129cb5ad;
+    text-decoration: underline;
+  }
+
+  /* Main content area flex and sizing */
+  .account-page {
+    flex: 3 1 0;
+    min-width: 0;
+  }
+
+  /* Headings */
+  h2 {
+    color: #222;
+    margin-bottom: 1rem;
+  }
+
+  /* Label for info sections */
+  .info label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  .search-bar-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.search-form {
+  display: flex;
+  max-width: 400px;
+  width: 100%;
+  height: 7.5vh;
+}
+
+.search-form input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.search-form button {
+  padding: 10px 10px;
+  font-weight: 600;
+  background-color: #007bff00;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.search-form button:hover {
+  background-color: #129db541;
+}
+
+  /* Info rows - labels and values aligned horizontally */
+  .info-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin: 0.5rem 0 1rem;
+    align-items: center;
+  }
+
+  /* Info label fixed width */
+  .info-label {
+    font-weight: bold;
+    width: 120px;
+    color: #444;
+  }
+
+  /* Info values with background and border */
+  .info-value {
+    flex: 1;
+    text-align: left;
+    background: #f4f6f8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+
+  /* Form labels with inputs inline, spaced nicely */
+  form label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    width: 100%;
+  }
+
+  /* Text inputs style */
+  input[type="text"] {
+    width: 400px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  /* Input focus styling */
+  input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+
+  /* Buttons base style */
+  button {
+    margin-top: 1rem;
+    padding: 10px 22px;
+    background-color: #007bff33;
+    border: none;
+    color: #130101;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Button hover effect */
+  button:hover {
+    background-color: #129cb5ad;
+  }
+
+  /* Table styles for cart */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  table thead tr {
+    background-color: #007bff33;
+    color: black;
+  }
+
+  table th, table td {
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  /* Zebra stripe for rows */
+  table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* Highlight on hover */
+  table tbody tr:hover {
+    background-color: #e6f0ff;
+  }
+
+  /* Danger button for removing items */
+  .btn-danger {
+    background-color: #007bff33;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-danger:hover {
+    background-color: #129cb5ad;
+  }
+
+  /* Actions container for buttons */
+  .actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  /* Checkout button style */
+  .checkout-button {
+    margin: 2rem auto 0;
+    width: 20%;
+    display: block;
+    background-color: #007bff33;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .checkout-button:hover {
+    background-color: #129cb5ad;
+  }
+  /* Add styles for profile picture upload */
+  .profile-pic-upload {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+  }
+  .profile-pic-upload label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #08509ee4;
+  }
+  .profile-pic-upload input[type="file"] {
+    width: 100%;
+    padding: 4px 0;
+  }
+  .profile-pic-upload button {
+    margin-top: 0.5rem;
+    width: 100%;
+    background-color: #007bff33;
+    color: #130101;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .profile-pic-upload button:hover {
+    background-color: #129cb5ad;
+  }
+
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .account-container {
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+/* Sidebar remains unchanged */
+.account-sidebar {
+  border-left: none;
+  border-bottom: 1px solid #ddd;
+  padding-left: 0;
+  padding-bottom: 1rem;
+  text-align: left;
+  min-width: auto;
+  margin-bottom: 1rem;
+}
+
+    .account-page {
+      flex: none;
+    }
+  }
+  @media (max-width: 768px) {
+  body {
+    padding-top: 250px; /* Ensures visibility below fixed header if any */
+  }
+
+  .account-container {
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 1rem;
+    margin: 10px;
+  }
+
+  .account-sidebar {
+    border-left: none;
+    border-bottom: 1px solid #ddd;
+    padding-left: 0;
+    padding-bottom: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .account-sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .account-page {
+    width: 100%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form input[type="text"] {
+    width: 100%;
+  }
+
+  .search-form button {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .checkout-button {
+    width: 100%;
+  }
+
+  .profile-pic-section img {
+    width: 100px;
+    height: auto;
+  }
+}
+
+</style>
+
+<div class="layout">
+  <main>
+    <div class="account-container">
+      
+
+      <!-- Sidebar (right) -->
+      <aside class="account-sidebar">
+<h3 style="text-align: center;">My Account</h3>
+
+<!-- Profile Picture Display -->
+<div class="profile-pic-section" style="text-align: center;">
+  {{#if user.profilePic}}
+    <img src="{{user.profilePic}}" alt="Profile Picture" width="150" style="border-radius: 8px; margin-bottom: 10px;">
+    <form action="/logined/upload-profile-pic" method="POST" enctype="multipart/form-data">
+      <label for="profilePic" style="text-align: center;">Change Profile Picture</label><br>
+      <input type="file" id="profilePic" name="profilePic" accept="image/*" required>
+      <br>
+      <button type="submit" style="margin-top: 10px, text-align: center;">Upload</button>
+    </form>
+  {{else}}
+    <p>No profile picture uploaded.</p>
+    <form action="/logined/upload-profile-pic" method="POST" enctype="multipart/form-data">
+      <label for="profilePic">Upload Profile Picture</label><br>
+      <input type="file" id="profilePic" name="profilePic" accept="image/*" required>
+      <br>
+      <button type="submit" style="margin-top: 10px;">Upload</button>
+    </form>
+  {{/if}}
+</div>
+        <ul>
+          <li><a href="/logined">Account Settings</a></li>
+          <li><a href="/logined">Address Details</a></li>
+          <li><a href="/cart">Shopping Cart</a></li>
+          <li><a href="/password-change">Change Password</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </aside>
+     
+
+      <!-- Main Content Section -->
+      <section class="account-page">
+
+        <!-- Account Settings Section -->
+        <h2 id="settings">Account Settings</h2>
+
+        <div class="info">
+          <label>Contact Information:</label>
+          <div class="info-row">
+            <span class="info-label">Name:</span>
+            <span class="info-value">{{user.name}}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{user.email}}</span>
+          </div>
+        </div>
+
+        <!-- Address Section -->
+        <div class="account-section">
+          <h2 id="address">Address Details</h2>
+
+          <div id="addressSection">
+            {{#if showForm}}
+              <!-- Show form to enter address if needed -->
+              <h3>Please Enter Your Address</h3>
+              <form action="/logined/address" method="POST">
+                <label>Street: <input type="text" name="street" required></label><br>
+                <label>City: <input type="text" name="city" required></label><br>
+                <label>State: <input type="text" name="state" required></label><br>
+                <label>Zip: <input type="text" name="zip" required></label><br>
+                <label>Country: <input type="text" name="country" required></label><br>
+                <button type="submit">Submit Address</button>
+              </form>
+            {{else}}
+              <!-- Display address if available -->
+              <h3>Your Address</h3>
+              <p>{{user.street}}, {{user.city}}, {{user.state}} - {{user.zip}}, {{user.country}}</p>
+            {{/if}}
+          </div>
+        </div>
+
+        <!-- Shopping Cart Section -->
+        <h2 id="cart">Shopping Cart ({{totalItems}} item{{#if (gt totalItems 1)}}s{{/if}})</h2>
+        <a href="/shop" style="text-decoration: underline; font-size: 14px;">Continue Shopping</a>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th></th> <!-- For Remove button -->
+            </tr>
+          </thead>
+          <tbody>
+            {{#if cart.length}}
+              {{#each cart}}
+              <tr>
+                <td>{{product_name}}</td>
+                <td>
+                  <!-- Quantity control buttons -->
+                  <button onclick="updateCart('{{product_id}}', 'decrement')">-</button>
+                  <input type="number" id="qty-{{product_id}}" value="{{quantity}}" readonly style="width: 30px; text-align:center;">
+                  <button onclick="updateCart('{{product_id}}', 'increment')">+</button>
+                </td>
+                <td>$ {{product_price}}</td>
+                <td id="total-{{product_id}}" data-unit-price="{{product_price}}">$ {{multiply product_price quantity}}</td>
+                <td>
+                  <form action="/cart/remove/{{product_id}}" method="POST" onsubmit="return confirm('Are you sure?')" style="display:inline-block;">
+                    <button class="btn btn-danger btn-sm">Remove</button>
+                  </form>
+                </td>
+              </tr>
+              {{/each}}
+            {{else}}
+              <tr><td colspan="5">Your cart is empty.</td></tr>
+            {{/if}}
+          </tbody>
+        </table>
+     </section>
+    </div>
+  </main>
+</div>
+
+<script>
+  /**
+   * Function to update cart item quantity via AJAX
+   * @param {string} productId - The product ID
+   * @param {string} action - 'increment' or 'decrement'
+   */
+  function updateCart(productId, action) {
+    fetch('/logined', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product_id: productId, action: action })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        // Update quantity input field
+        const qtyInput = document.getElementById(`qty-${productId}`);
+        if (qtyInput) {
+          qtyInput.value = data.quantity;
+        }
+
+        // Update total price cell for this product
+        const price = parseFloat(document.getElementById(`total-${productId}`).dataset.unitPrice);
+        const totalCell = document.getElementById(`total-${productId}`);
+        if (totalCell) {
+          totalCell.innerText = '$ ' + (price * data.quantity).toFixed(2);
+        }
+
+        // Reload page if quantity zero (item removed)
+        if (data.quantity === 0) {
+          location.reload();
+        }
+      } else {
+        console.error(data.error);
+      }
+    })
+    .catch(err => console.error("AJAX Error:", err));
+  }
+</script>
+
+{{>footer}}

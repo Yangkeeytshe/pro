@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Wishlist Functionality</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        #results { margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Wishlist Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Authentication Status</h2>
+        <button onclick="testAuthStatus()">Check Auth Status</button>
+        <div id="auth-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Add to Wishlist</h2>
+        <input type="number" id="productId" placeholder="Product ID (e.g., 1)" value="1">
+        <button onclick="testAddToWishlist()">Add to Wishlist</button>
+        <div id="add-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Get Wishlist</h2>
+        <button onclick="testGetWishlist()">Get Wishlist</button>
+        <div id="get-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Remove from Wishlist</h2>
+        <input type="number" id="removeProductId" placeholder="Product ID to remove" value="1">
+        <button onclick="testRemoveFromWishlist()">Remove from Wishlist</button>
+        <div id="remove-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Wishlist Count</h2>
+        <button onclick="testWishlistCount()">Get Wishlist Count</button>
+        <div id="count-result"></div>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            results.innerHTML += `<div class="${type}">[${timestamp}] ${message}</div>`;
+            results.scrollTop = results.scrollHeight;
+        }
+
+        async function testAuthStatus() {
+            const resultDiv = document.getElementById('auth-result');
+            try {
+                const response = await fetch('/api/auth/status');
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="success">✅ Auth Status: ${data.isLoggedIn ? 'Logged In' : 'Not Logged In'}</div>`;
+                    if (data.user) {
+                        resultDiv.innerHTML += `<div class="info">User: ${data.user.name} (ID: ${data.user.id})</div>`;
+                    }
+                    log(`Auth check successful: ${data.isLoggedIn ? 'Logged In' : 'Not Logged In'}`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Auth check failed</div>`;
+                    log('Auth check failed', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                log(`Auth check error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAddToWishlist() {
+            const productId = document.getElementById('productId').value;
+            const resultDiv = document.getElementById('add-result');
+            
+            if (!productId) {
+                resultDiv.innerHTML = '<div class="error">❌ Please enter a product ID</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/wishlist/add/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="success">✅ ${data.message}</div>`;
+                    if (data.product) {
+                        resultDiv.innerHTML += `<div class="info">Product: ${data.product.name} - Nu. ${data.product.price}</div>`;
+                    }
+                    log(`Added product ${productId} to wishlist successfully`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+                    log(`Failed to add product ${productId}: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                log(`Add to wishlist error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testGetWishlist() {
+            const resultDiv = document.getElementById('get-result');
+            
+            try {
+                const response = await fetch('/api/wishlist');
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="success">✅ Wishlist retrieved (${data.count} items)</div>`;
+                    if (data.wishlist && data.wishlist.length > 0) {
+                        let itemsHtml = '<ul>';
+                        data.wishlist.forEach(item => {
+                            itemsHtml += `<li>${item.name} - Nu. ${item.price} (ID: ${item.id})</li>`;
+                        });
+                        itemsHtml += '</ul>';
+                        resultDiv.innerHTML += itemsHtml;
+                    }
+                    log(`Retrieved wishlist: ${data.count} items`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+                    log(`Failed to get wishlist: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                log(`Get wishlist error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testRemoveFromWishlist() {
+            const productId = document.getElementById('removeProductId').value;
+            const resultDiv = document.getElementById('remove-result');
+            
+            if (!productId) {
+                resultDiv.innerHTML = '<div class="error">❌ Please enter a product ID</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/wishlist/remove/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="success">✅ ${data.message}</div>`;
+                    log(`Removed product ${productId} from wishlist successfully`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+                    log(`Failed to remove product ${productId}: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                log(`Remove from wishlist error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testWishlistCount() {
+            const resultDiv = document.getElementById('count-result');
+            
+            try {
+                const response = await fetch('/api/wishlist/count');
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<div class="success">✅ Wishlist count: ${data.count}</div>`;
+                    log(`Wishlist count: ${data.count}`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+                    log(`Failed to get wishlist count: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                log(`Get wishlist count error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run auth status check on page load
+        window.addEventListener('load', () => {
+            log('Page loaded, running initial tests...', 'info');
+            testAuthStatus();
+        });
+    </script>
+</body>
+</html>

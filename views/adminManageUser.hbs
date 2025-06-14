@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(120deg, #f0f8ff, #e0f7fa);
+      color: #1c1c1c;
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-right a {
+      color: #1c1c1c;
+      font-size: 18px;
+    }
+
+    .nav-right a:hover {
+      color: #2563eb;
+      transform: scale(1.1);
+    }
+
+    .sidebar-toggle {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #1c1c1c;
+      z-index: 2001;
+    }
+
+    .admin-layout {
+      display: flex;
+      width: 100%;
+      padding-top: 60px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    aside {
+      width: 220px;
+      background: #ffffff;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+      padding: 2rem 1.5rem;
+      height: calc(100vh - 60px);
+      position: sticky;
+      top: 60px;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    aside h2 {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    aside ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    aside ul li {
+      margin-bottom: 1rem;
+    }
+
+    aside ul li a {
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      color: #374151;
+      padding: 10px 14px;
+      display: block;
+      border-radius: 6px;
+      transition: 0.2s ease;
+    }
+
+    aside ul li a:hover {
+      background-color: #e0f2fe;
+      color: #2563eb;
+    }
+
+    .main-panel {
+      flex-grow: 1;
+      padding: 2rem;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 1250px;
+      overflow-x: auto;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #0f172a;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      gap: 12px;
+    }
+
+    .controls input[type="text"],
+    .controls select {
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      transition: border-color 0.3s ease;
+      width: 250px;
+    }
+
+    .controls input[type="text"]:focus,
+    .controls select:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    tr:hover {
+      background-color: #e0f2fe;
+    }
+
+    td img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+      background-color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    .btn.delete {
+      border-color: #dc2626;
+      color: #dc2626;
+    }
+
+    .btn.delete:hover {
+      background-color: #dc2626;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-toggle {
+        display: block;
+      }
+
+      aside {
+        position: fixed;
+        left: 0;
+        top: 60px;
+        height: calc(100% - 60px);
+        width: 240px;
+        transform: translateX(-100%);
+        z-index: 2000;
+        background-color: #ffffff;
+      }
+
+      aside.active {
+        transform: translateX(0);
+      }
+
+      .main-panel {
+        padding: 80px 16px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .controls input,
+      .controls select {
+        width: 100%;
+      }
+
+      table {
+        font-size: 13px;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+      }
+    }   @media (max-width: 768px) {
+      .admin-layout {
+        flex-direction: column;
+      }
+      .stat-boxes {
+        flex-direction: column;
+      }
+    }
+  .top-nav {
+  position: fixed;
+  top: 0;
+  right: 30px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-right: 20px;
+  z-index: 1000;
+  background: transparent; /* No background */
+}
+
+.nav-right {
+  display: flex;
+  gap: 20px; /* or adjust to your desired spacing */
+}
+
+
+.nav-right a:hover {
+  color: #2563eb;
+  transform: scale(1.1);
+}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="nav-right">
+      <a href="/admin/adminDashboard"><i class="fas fa-house"></i></a>
+      <a href="/logout"><i class="fas fa-right-from-bracket"></i></a>
+      <a href="/admin/adminSetting"><i class="fas fa-gear"></i></a>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <aside>
+      <h2>Admin Panel</h2>
+      <ul>
+        <li><a href="/admin/adminDashboard">Dashboard</a></li>
+        <li><a href="/admin/adminManageUser">Manage Users</a></li>
+        <li><a href="/admin/adminManageProduct">Products</a></li>
+        <li><a href="/admin/adminAnalytics">Analytics</a></li>
+        <li><a href="/admin/adminSalesAnalytics">Sales Analytics</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-panel">
+      <div class="glass-card">
+        <h2>Manage Users</h2>
+        <div class="controls">
+          <input type="text" id="userSearch" placeholder="Search by name or email..." oninput="filterUsers()" />
+          <select id="statusFilter" onchange="filterUsers()">
+            <option value="all">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+          </select>
+        </div>
+        <table id="userTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Country</th>
+              <th>Status</th>
+              <th>Last Activity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each users}}
+            <tr data-status="{{status}}">
+              <td>{{id}}</td>
+              <td class="user-name">{{name}}</td>
+              <td class="user-email">{{email}}</td>
+              <td>{{city}}</td>
+              <td>{{state}}</td>
+              <td>{{country}}</td>
+              <td>
+                {{#if (eq status 1)}}<span class="status-active">Active</span>{{else}}<span class="status-inactive">Inactive</span>{{/if}}
+              </td>
+              <td>
+                {{#if (eq status 1)}}<span class="badge green">Active now</span>{{else}}<span class="badge gray">7+ days ago</span>{{/if}}
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <a href="/admin/adminManageUser/users/{{id}}/edit" class="btn">Edit</a>
+                  {{#if (eq status 1)}}
+                  <form action="/admin/adminManageUser/users/{{id}}/deactivate" method="POST" style="margin:0;">
+                    <button type="submit" class="btn">Deactivate</button>
+                  </form>
+                  {{else}}
+                  <form action="/admin/adminManageUser/users/{{id}}/activate" method="POST" style="margin:0;">
+                    <button type="submit" class="btn">Activate</button>
+                  </form>
+                  {{/if}}
+                  <form action="/admin/adminManageUser/users/{{id}}/delete" method="POST" style="margin:0;">
+                    <button type="submit" class="btn delete">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.querySelector("aside").classList.toggle("active");
+    }
+
+    function filterUsers() {
+      const keyword = document.getElementById('userSearch').value.toLowerCase();
+      const status = document.getElementById('statusFilter').value;
+      const rows = document.querySelectorAll('#userTable tbody tr');
+
+      rows.forEach((row) => {
+        const name = row.querySelector('.user-name').textContent.toLowerCase();
+        const email = row.querySelector('.user-email').textContent.toLowerCase();
+        const rowStatus = row.getAttribute('data-status');
+
+        const matchesKeyword = name.includes(keyword) || email.includes(keyword);
+        const matchesStatus = status === 'all' || rowStatus === status;
+
+        row.style.display = matchesKeyword && matchesStatus ? '' : 'none';
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("aside a").forEach(link => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            document.querySelector("aside").classList.remove("active");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

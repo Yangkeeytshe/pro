@@ -1,0 +1,292 @@
+{{> header}}
+
+<style>
+  body {
+   
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6;
+    color: #1c1c1c;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cart-wrapper {
+     margin-top: 190px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+  }
+
+  .cart-left, .cart-right {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+  }
+
+  .cart-left {
+    flex: 2;
+    width:100%;
+  }
+
+  .cart-right {
+    flex: 1;
+    min-width: 280px;
+    max-width: 360px;
+  }
+
+  .cart-left h4,
+  .cart-right h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+
+  .quantity-buttons {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100px;
+  }
+
+  .quantity-buttons button {
+    background-color: #f8f8f8;
+    border: none;
+    padding: 6px 12px;
+    flex: 1;
+    cursor: pointer;
+  }
+
+  .quantity-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+  }
+
+  .btn-danger {
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .btn-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+
+  .summary-line.total {
+    font-weight: 600;
+    font-size: 16px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+
+  .checkout-button {
+    display: block;
+    width: 100%;
+    background-color: #0e8aa940;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .checkout-button:hover {
+    background-color: #333;
+  }
+
+  .express-checkout {
+  background-color: #a90e8a3c;
+    margin-top: 12px;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 16px;
+  }@media (max-width: 768px) {
+  .cart-wrapper {
+    flex-direction: column;
+    margin-top: 200px;
+  }
+
+  .cart-left, .cart-right {
+    width: 100%;
+    min-width: unset;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+}
+
+  .cart-left {
+    order: 1;
+  }
+
+  .cart-right {
+    order: 2;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .checkout-button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .note {
+    font-size: 11px;
+  }
+}
+
+</style>
+
+<div class="cart-wrapper">
+  <!-- LEFT SIDE: Cart Items -->
+  <div class="cart-left">
+    <h4>Shopping Cart ({{totalItems}} item{{#if (gt totalItems 1)}}s{{/if}})</h4>
+  <a href="/shop" style="text-decoration: underline; font-size: 14px;">Continue Shopping</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>{{#if cart.length}}
+  {{#each cart}}
+    <tr>
+      <td>
+        <div style="display: flex; align-items: center;">
+          <img src="{{this.image}}" alt="{{this.product_name}}" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+          <div>
+            {{product_name}}<br>
+            <span style="font-size:12px;"></span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <form action="/update_quantity" method="POST">
+          <input type="hidden" name="product_id" value="{{product_id}}">
+          <div class="quantity-buttons">
+            <button type="submit" name="action" value="decrement">-</button>
+            <input type="number" class="quantity-input" value="{{quantity}}" readonly>
+            <button type="submit" name="action" value="increment">+</button>
+          </div>
+        </form>
+      </td>
+      <td>$ {{product_price}}</td>
+      <td>$ {{multiply product_price quantity}}</td>
+      <td>
+        <form action="/cart/remove/{{product_id}}" method="POST" onsubmit="return confirm('Are you sure?')">
+          <button class="btn btn-danger btn-sm">Remove</button>
+        </form>
+      </td>
+    </tr>
+  {{/each}}
+{{else}}
+  <tr><td colspan="5" class="text-center">Your cart is empty.</td></tr>
+{{/if}}
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RIGHT SIDE: Summary Panel -->
+  <div class="cart-right">
+    <h4>Summary</h4>
+
+    {{#if (lt totalPrice 150)}}
+      <div class="note">You are Nu {{subtract 150 totalPrice}} away from free shipping</div>
+    {{else}}
+      <div class="note">🎉 You have qualified for free shipping!</div>
+    {{/if}}
+
+    <div class="summary-line">
+      <span>Subtotal ({{totalItems}} item{{#if (gt totalItems 1)}}s{{/if}})</span>
+<span>Nu {{totalPrice}}</span>
+    </div>
+    <div class="summary-line">
+      <span>Shipping</span>
+      <span>{{#if (lt totalPrice 150)}}Nu 10.00{{else}}Free{{/if}}</span>
+    </div>
+    <div class="summary-line">
+      <span>GST included</span>
+      <span>Nu {{multiply totalPrice 0.1}}</span>
+    </div>
+    <div class="summary-line total">
+      <span>Total</span>
+      <span>
+        Nu {{#if (lt totalPrice 150)}}{{add totalPrice 10}}{{else}}{{totalPrice}}{{/if}}
+      </span>
+    </div>
+
+    <form action="/checkout" method="GET">
+      <button type="submit" class="checkout-button">Checkout</button>
+    </form>
+    <form action="/checkout" method="GET">
+      <button type="submit" class="checkout-button express-checkout">Express Checkout</button>
+    </form>
+
+    <div class="summary-line" style="margin-top: 20px;">
+      <span>Afterpay</span>
+      <span>4 x Nu{{afterpayAmount (calculateFinalTotal totalPrice)}}</span>
+</div>
+
+    <div class="note">
+      E-Gift Cards: Redeem on the Payment page.
+    </div>
+
+    <div class="note">
+      Delivery: Free shipping over Nu 150. Express Shipping available.
+    </div>
+
+    <div class="note">
+      Returns: Enjoy a 60-day return policy. <a href="/terms" style="text-decoration: underline;">See full policy</a>.
+    </div>
+  </div>
+</div>
+
+{{> footer}}

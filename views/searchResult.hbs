@@ -1,0 +1,229 @@
+{{>header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Search Results for "{{query}}"</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px 10px;
+      margin-top: 180px;
+    }
+
+    .search-title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .search-product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .search-product-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 250px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+
+    .search-product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .search-product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .search-product-card h2 {
+      font-size: 18px;
+      margin: 5px 0;
+      color: #222;
+      text-align: center;
+    }
+
+    .search-product-card p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+
+    .add-to-cart-btn {
+      background-color: #0b8cbd;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #096999;
+    }
+
+    .cart-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .search-back-link {
+      display: block;
+      text-align: center;
+      margin: 20px;
+      color: #0b8cbd;
+      text-decoration: none;
+    }
+
+    .search-back-link:hover {
+      text-decoration: underline;
+    }
+
+    section#newsletter {
+      background: #e2f4ff;
+      margin-top: 50px;
+      padding: 30px 15px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    section#newsletter h4 {
+      margin-bottom: 10px;
+      color: #0b8cbd;
+    }
+
+    section#newsletter form {
+      margin-top: 15px;
+    }
+
+    section#newsletter input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      max-width: 90%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    section#newsletter button {
+      padding: 10px 20px;
+      background-color: #0b8cbd;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    section#newsletter button:hover {
+      background-color: #096999;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+        margin-top: 300px;
+      }
+
+      .search-product-card {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .search-title {
+        font-size: 20px;
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="search-title">Search Results for "{{query}}"</h1>
+
+  {{#if products.length}}
+    <div class="search-product-list">
+      {{#each products}}
+        <div class="search-product-card">
+          <a href="/product/{{id}}">
+            <img src="{{image}}" alt="{{name}}" loading="lazy" />
+          </a>
+
+          <h2>{{name}}</h2>
+          <p>{{description}}</p>
+          <p><strong>Price:</strong> Nu{{price}}</p>
+          <p><strong>Rating:</strong> {{rating}}</p>
+          <p><strong>Category:</strong> {{category}}</p>
+
+          <button
+            class="add-to-cart-btn add-to-cart"
+            data-product-id="{{id}}"
+            data-product-name="{{name}}"
+            data-product-price="{{price}}"
+            data-product-image="{{image}}"
+            aria-label="Add {{name}} to cart"
+          >
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          </button>
+
+          <form action="/cart/add/{{id}}" method="POST" class="product-form" style="display: none;">
+            <input type="hidden" name="product_id" value="{{id}}">
+            <input type="hidden" name="product_name" value="{{name}}">
+            <input type="hidden" name="product_price" value="{{price}}">
+            <input type="hidden" name="product_rating" value="{{rating}}">
+            <input type="hidden" name="product_image" value="{{image}}">
+            <input type="hidden" name="category" value="{{category}}">
+          </form>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p style="text-align: center;">No results found for "{{query}}".</p>
+  {{/if}}
+
+  <a href="/" class="search-back-link">← Back to Home</a>
+
+  <section id="newsletter">
+    <div class="newstext">
+      <h4>Join Our Newsletter!</h4>
+      <p>Get E-mail about our latest products and special offers</p>
+    </div>
+    <form class="form" action="/subscribe" method="POST">
+      <input type="email" name="email" placeholder="Your Email Address" required />
+      <br />
+      <button type="submit">Sign Up</button>
+    </form>
+  </section>
+
+</body>
+</html>
+{{>footer}}

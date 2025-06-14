@@ -1,0 +1,170 @@
+{{> header}}
+
+<style>
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+    color: #1c1c1c;
+  }
+  
+  .search-form {
+    display: flex;
+    width: 100%;
+    border: 1px solid #17609b0c;
+    overflow: hidden;
+    background-color: #f0f8ff;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+  }
+
+  .search-input::placeholder {
+    color: #888;
+  }
+.search-button {
+  margin-top: -45px; /* Adjust this value as needed */
+  margin-left: 400px;
+  margin-bottom: 0px;
+  padding: 0 10px;
+  display: flex-end;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  width: 60px;
+}
+
+  .search-button:hover {
+    background-color: none;
+
+  }
+  .admin-wrapper {
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+  }
+
+  .admin-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .submit-btn {
+    margin-top: 32px;
+    background-color: #000;
+    color: #fff;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #333;
+  }
+  
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<body>
+<nav class="top-nav">
+  <div class="nav-right">
+    <a href="/admin/adminDashboard" title="Home"><i class="fas fa-house"></i></a>
+    <a href="/logout" title="Logout"><i class="fas fa-right-from-bracket"></i></a>
+    <a href="/admin/adminSetting" title="Settings"><i class="fas fa-gear"></i></a>
+  </div>
+</nav>
+
+
+<div class="admin-wrapper">
+  <div class="admin-card">
+    <h2>Edit Product</h2>
+    <form action="/admin/adminManageProduct/products/{{product.id}}/edit" method="POST">
+      <label for="name">Product Name</label>
+      <input id="name" type="text" name="name" value="{{product.name}}" required />
+
+      <label for="category">Category</label>
+      <input id="category" type="text" name="category" value="{{product.category}}" required />
+
+      <label for="price">Price (Nu)</label>
+      <input id="price" type="number" name="price" step="0.01" min="0" value="{{product.price}}" required />
+
+      <label for="date_uploaded">Date Uploaded</label>
+      <input id="date_uploaded" type="date" name="date_uploaded" value="{{product.date_uploaded}}" required />
+
+      <label for="rating">Rating (1-5)</label>
+<input id="rating" type="number" name="rating" min="1" max="5" step="0.1" value="{{product.rating}}" required />
+
+      <label for="image">Image URL</label>
+      <input id="image" type="text" name="image" value="{{product.image}}" />
+
+      <button type="submit" class="submit-btn">Update Product</button>
+    </form>
+  </div>
+</div>
+
+{{> footer}}

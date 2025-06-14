@@ -1,0 +1,365 @@
+{{> header}}
+
+<style>
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f6f6f6;
+    color: #1c1c1c;
+    margin: 0;
+    padding: 0;
+  }
+
+  .checkout-wrapper {
+    margin-top: 100px;
+    display: flex;
+    justify-content: flex-start; /* Align left */
+    gap: 48px; /* More space between columns */
+    padding: 60px 40px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  /* LEFT COLUMN - Form: wider */
+  .checkout-column.form-column {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    flex: 1 1 640px; /* wider base width */
+    max-width: 720px;
+    box-sizing: border-box;
+  }
+
+  .checkout-column.summary-column {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    flex: 1 1 360px;
+    max-width: 400px;
+    box-sizing: border-box;
+    min-height: 600px; 
+  }
+
+  .checkout-column h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .checkout-button {
+    display: block;
+    width: 100%;
+    background-color:linear-gradient(135deg, var(--primary-color), #0e8aa940);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .checkout-button:hover {
+    background-color: #333;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 16px;
+  }
+
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0; /* increased padding for taller rows */
+    border-bottom: 1px solid #eee;
+  }
+
+  .order-item img {
+    width: 64px;  /* larger images */
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 16px;
+  }
+
+  .order-item-details {
+    flex-grow: 1;
+  }
+
+  .order-item-details span {
+    font-size: 16px; /* bigger font */
+    font-weight: 600;
+  }
+
+  .order-item-details small {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+
+  .summary-line.total {
+    font-weight: 600;
+    font-size: 18px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  @media (max-width: 768px) {
+  .checkout-wrapper {
+    flex-direction: column;
+    padding: 200px 12px;
+    gap: 20px;
+  }
+
+  .checkout-column.form-column,
+  .checkout-column.summary-column {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .checkout-column h4 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .order-item img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .order-item-details span {
+    font-size: 14px;
+  }
+
+  .order-item-details small {
+    font-size: 12px;
+  }
+
+  .summary-line {
+    font-size: 14px;
+  }
+
+  .summary-line.total {
+    font-size: 15px;
+  }
+
+  .checkout-button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  #checkout-message {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+</style>
+
+<div class="checkout-wrapper">
+  <form id="checkoutForm" action="/order/checkout" method="POST" style="display: contents;">
+    <!-- COLUMN 1: Shipping + Payment Form -->
+    <div class="checkout-column form-column">
+      <h4>Shipping Address</h4>
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" required>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastname" required>
+      </div>
+      <div class="form-group">
+        <label for="business">Business Name <span style="color:#888;font-weight:normal;">(optional)</span></label>
+        <input type="text" id="business" name="business">
+      </div>
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" name="address" required
+          value="{{user.street}}{{#if user.city}}, {{user.city}}{{/if}}{{#if user.state}}, {{user.state}}{{/if}}{{#if user.zip}}, {{user.zip}}{{/if}}{{#if user.country}}, {{user.country}}{{/if}}">
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="tel" id="mobile" name="mobile" required>
+      </div>
+
+      <h4>Card Details</h4>
+      <div class="form-group">
+        <label for="cardname">Name on Card</label>
+        <input type="text" id="cardname" name="cardname" required pattern="^[A-Za-z\s]{2,}$" autocomplete="cc-name">
+      </div>
+      <div class="form-group">
+        <label for="cardnumber">Card Number</label>
+        <input type="text" id="cardnumber" name="cardnumber" maxlength="19" required
+          pattern="^(?:\d{4}[- ]?){3}\d{4}$" inputmode="numeric" autocomplete="cc-number">
+      </div>
+      <div class="form-group row" style="display: flex; gap: 16px;">
+        <div style="flex: 1;">
+          <label for="expdate">Expiry Date</label>
+          <input type="text" id="expdate" name="expdate" placeholder="MM/YY" required
+            pattern="^(0[1-9]|1[0-2])\/\d{2}$" autocomplete="cc-exp">
+        </div>
+        <div style="flex: 1;">
+          <label for="cvv">CVV</label>
+          <input type="password" id="cvv" name="cvv" maxlength="4" required pattern="^\d{3,4}$" inputmode="numeric"
+            autocomplete="cc-csc">
+        </div>
+      </div>
+      <div id="cardnumber-error" style="color:#c00; font-size:14px;"></div>
+      <div id="expiry-error" style="color:#c00; font-size:14px;"></div>
+      <button type="submit" class="checkout-button">Place Order</button>
+    </div>
+  </form>
+<!-- COLUMN 2: Cart Summary -->
+<div class="checkout-column summary-column">
+  <h4>Order Summary</h4>
+  {{#if cart.length}}
+    {{#each cart}}
+      <div class="order-item">
+        <div class="d-flex align-items-center" style="display:flex; align-items:center;">
+          <img src="{{this.image}}" alt="{{this.product_name}}" width="50" height="50">
+          <div class="order-item-details" style="margin-left: 10px;">
+            <span>{{this.product_name}}</span><br>
+            <small>x{{this.quantity}}</small>
+          </div>
+        </div>
+        <span class="fw-bold">Nu {{multiply this.product_price this.quantity}}</span>
+      </div>
+    {{/each}}
+
+    {{#if (lt totalPrice 150)}}
+      <div class="note">You are Nu {{subtract 150 totalPrice}} away from free shipping</div>
+    {{else}}
+      <div class="note">🎉 You have qualified for free shipping!</div>
+    {{/if}}
+
+    <div class="summary-line">
+      <span>Subtotal ({{totalItems}} item{{#if (gt totalItems 1)}}s{{/if}})</span>
+      <span>Nu {{totalPrice}}</span>
+    </div>
+    <div class="summary-line">
+      <span>Shipping</span>
+      <span>{{#if (lt totalPrice 150)}}Nu 10.00{{else}}Free{{/if}}</span>
+    </div>
+    <div class="summary-line">
+      <span>GST included</span>
+      <span>Nu {{multiply totalPrice 0.1}}</span>
+    </div>
+    <div class="summary-line total">
+      <span>Total</span>
+      <span>
+        Nu {{#if (lt totalPrice 150)}}{{add totalPrice 10}}{{else}}{{totalPrice}}{{/if}}
+      </span>
+    </div>
+  {{else}}
+    <p>Your cart is empty</p>
+  {{/if}}
+</div>
+
+<!-- Container to show success or error messages -->
+<div id="checkout-message" style="margin-top: 20px; font-weight: bold;"></div>
+
+<script>
+  const cart = {{{json cart}}} || [];
+
+  document.getElementById('checkoutForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const messageEl = document.getElementById('checkout-message');
+    messageEl.textContent = '';  // Clear previous messages
+
+    const formData = {
+      user_id: 123, // adjust as needed or get dynamically
+      first_name: document.getElementById('firstname').value,
+      last_name: document.getElementById('lastname').value,
+      business_name: document.getElementById('business')?.value || null,
+      delivery_address: document.getElementById('address').value,
+      mobile_number: document.getElementById('mobile').value,
+      card_name: document.getElementById('cardname').value,
+      card_number: document.getElementById('cardnumber').value,
+      expiry_date: document.getElementById('expdate').value,
+      cvv: document.getElementById('cvv').value,
+      order_items: cart
+    };
+
+    // Show loading screen while processing
+    try {
+      const loadingRes = await fetch('/order/loading'); // loading.hbs rendered here
+      const loadingHtml = await loadingRes.text();
+      document.body.innerHTML = loadingHtml;
+
+      // Wait a moment to show loading or remove this line
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Now send checkout request
+      const response = await fetch('/order/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const html = await response.text();
+      document.body.innerHTML = html;
+
+    } catch (error) {
+      console.error('Error:', error);
+      messageEl.textContent = 'An error occurred. Please try again.';
+    }
+  });
+</script>
+
+{{> footer}}

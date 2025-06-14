@@ -1,0 +1,441 @@
+
+{{> head pageTitle="Shop"}}
+
+<body>
+{{> header}}
+
+<main class="shop-main">
+  <style>
+    /* Shop-specific styles using CSS variables */
+    .shop-main {
+      margin-top: 50px;
+      padding-top: var(--spacing-xl);
+    }
+
+    .shop-header {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+      padding: var(--spacing-2xl) 0;
+      background: linear-gradient(135deg, var(--primary-color), #0e8aa940);
+      color: white;
+      border-radius: var(--border-radius-lg);
+      margin: var(--spacing-xl) auto;
+      max-width: 1200px;
+    }
+
+    .shop-header h1 {
+      font-size: var(--font-size-3xl);
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .shop-filters {
+      background: white;
+      padding: var(--spacing-xl);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin: var(--spacing-xl) auto;
+      max-width: 1200px;
+      border: 1px solid var(--border-color);
+    }
+
+    .filter-form {
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: var(--font-size-sm);
+    }
+
+    .filter-group select {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: var(--font-size-base);
+      background: white;
+      min-width: 150px;
+      transition: var(--transition);
+    }
+
+    .filter-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+
+    .filter-submit {
+      background: linear-gradient(135deg, var(--primary-color), #0e8aa940);
+      color: white;
+      border: none;
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+
+    .filter-submit:hover {
+      background:#1e4080;
+      transform: translateY(-1px);
+    }
+
+    .products-section {
+      max-width: 1200px;
+      margin: var(--spacing-2xl) auto;
+      padding: 0 var(--spacing-lg);
+    }
+
+    /* Override global pro-container for shop page */
+    .shop-pro-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-xl);
+      margin: var(--spacing-2xl) 0;
+    }
+
+    /* Enhanced product cards for shop */
+    .shop-pro {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-color);
+    }
+
+    .shop-pro:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--box-shadow-lg);
+      border-color: var(--primary-color);
+    }
+
+    .shop-pro img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .shop-pro:hover img {
+      transform: scale(1.05);
+    }
+
+    .shop-pro-content {
+      padding: var(--spacing-lg);
+    }
+
+    .shop-pro-category {
+      color: var(--text-muted);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .shop-pro-title {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0 0 var(--spacing-sm) 0;
+      line-height: 1.3;
+    }
+
+    .shop-pro-title a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    .shop-pro-title a:hover {
+      color: #0d9bb788;
+    }
+
+    .shop-pro-price {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: var(--spacing-sm) 0;
+    }
+
+    .shop-pro-rating {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      margin: var(--spacing-sm) 0;
+      color: var(--text-light);
+      font-size: var(--font-size-sm);
+    }
+
+    .shop-pro-rating .stars {
+      color: #ffc107;
+    }
+
+    .shop-pro-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .add-to-cart-btn {
+      background: linear-gradient(135deg, var(--primary-color), #0e8aa940);
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      flex: 1;
+      justify-content: center;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #1e4080;
+      transform: translateY(-1px);
+    }
+
+    /* Pagination styles */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin: var(--spacing-3xl) 0;
+      flex-wrap: wrap;
+    }
+
+    .pagination-btn {
+      background: white;
+      color: var(--text-dark);
+      border: 2px solid var(--border-color);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      min-width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .pagination-btn:hover {
+      background:#1e4080;
+      color: white;
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    .pagination-btn.active {
+      background: linear-gradient(135deg, var(--primary-color), #0e8aa940);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Responsive design for shop */
+    @media (max-width: 768px) {
+      .filter-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-group select {
+        min-width: 100%;
+      }
+
+      .shop-pro-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-lg);
+      }
+
+      .pagination {
+        gap: var(--spacing-xs);
+      }
+
+      .pagination-btn {
+        min-width: 40px;
+        height: 40px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .shop-pro-container {
+        grid-template-columns: 1fr;
+      }
+
+      .shop-header h1 {
+        font-size: var(--font-size-2xl);
+      }
+
+      .shop-filters {
+        margin: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-lg);
+      }
+
+      .products-section {
+        padding: 0 var(--spacing-sm);
+      }
+    }
+  </style>
+
+  <!-- Shop Header -->
+  <section class="shop-header">
+    <h1>Shop Our Traditional Collection</h1>
+    <p>Discover authentic Bhutanese clothing and accessories</p>
+  </section>
+
+  <!-- Shop Filters -->
+  <section class="shop-filters">
+    <form class="filter-form" method="GET" action="/shop">
+      <div class="filter-group">
+        <label for="shopsort">Sort By</label>
+        <select name="shopsort" id="shopsort">
+          <option value="newest" {{#if (eq shopsort "newest")}}selected{{/if}}>Latest</option>
+          <option value="oldest" {{#if (eq shopsort "oldest")}}selected{{/if}}>Trendy</option>
+          <option value="ascending" {{#if (eq shopsort "ascending")}}selected{{/if}}>Price: Low to High</option>
+          <option value="descending" {{#if (eq shopsort "descending")}}selected{{/if}}>Price: High to Low</option>
+          <option value="recommended" {{#if (eq shopsort "recommended")}}selected{{/if}}>Recommended</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+          <option value="" {{#unless category}}selected{{/unless}}>All Categories</option>
+          <option value="Men" {{#if (eq category "Men")}}selected{{/if}}>Men</option>
+          <option value="Women" {{#if (eq category "Women")}}selected{{/if}}>Women</option>
+          <option value="Accessories" {{#if (eq category "Accessories")}}selected{{/if}}>Accessories</option>
+        </select>
+      </div>
+
+      <button type="submit" class="filter-submit">
+        <i class="fas fa-filter"></i>
+        Apply Filters
+      </button>
+    </form>
+  </section>
+     <button type="button" class="wishlist-btn" data-product-id="{{id}}" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); z-index: 10;">
+          <i class="far fa-heart" style="color: #666;"></i>
+        </button>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    {{#if products}}
+      <div class="shop-pro-container">
+        {{#each products}}
+          <article class="shop-pro">
+            <a href="/product/{{id}}">
+              <img src="{{image}}" alt="{{name}}" loading="lazy" />
+            </a>
+
+            <div class="shop-pro-content">
+              <div class="shop-pro-category">{{category}}</div>
+
+              <h3 class="shop-pro-title">
+                <a href="/product/{{id}}">{{name}}</a>
+              </h3>
+
+              <div class="shop-pro-price">Nu {{price}}</div>
+
+              <div class="shop-pro-rating">
+                <div class="stars">
+                  {{#times rating}}★{{/times}}{{#times (subtract 5 rating)}}☆{{/times}}
+                </div>
+                <span>({{rating}})</span>
+              </div>
+
+              <div class="shop-pro-actions">
+                <button
+                  class="add-to-cart-btn add-to-cart"
+                  data-product-id="{{id}}"
+                  data-product-name="{{name}}"
+                  data-product-price="{{price}}"
+                  data-product-image="{{image}}"
+                  aria-label="Add {{name}} to cart"
+                >
+                  <i class="fas fa-cart-plus"></i>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="no-products">
+        <div class="no-products-content">
+          <i class="fas fa-search fa-3x text-muted mb-3"></i>
+          <h3>No products found</h3>
+          <p>Try adjusting your filters or search criteria.</p>
+          <a href="/shop" class="btn btn-primary">View All Products</a>
+        </div>
+      </div>
+    {{/if}}
+
+    <!-- Pagination -->
+    {{#if (gt totalPages 1)}}
+      <nav class="pagination" aria-label="Product pagination">
+        {{#if (gt currentPage 1)}}
+          <a href="?page={{decrement currentPage}}&shopsort={{shopsort}}&category={{category}}"
+             class="pagination-btn"
+             aria-label="Previous page">
+            <i class="fas fa-chevron-left"></i>
+          </a>
+        {{/if}}
+
+        {{#each (range 1 totalPages)}}
+          <a href="?page={{this}}&shopsort={{../shopsort}}&category={{../category}}"
+             class="pagination-btn {{#if (eq ../currentPage this)}}active{{/if}}"
+             aria-label="Page {{this}}"
+             {{#if (eq ../currentPage this)}}aria-current="page"{{/if}}>
+            {{this}}
+          </a>
+        {{/each}}
+
+        {{#if (lt currentPage totalPages)}}
+          <a href="?page={{increment currentPage}}&shopsort={{shopsort}}&category={{category}}"
+             class="pagination-btn"
+             aria-label="Next page">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        {{/if}}
+      </nav>
+    {{/if}}
+  </section>
+
+</main>
+
+{{> footer}}

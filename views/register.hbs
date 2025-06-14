@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<title>Mom's Art</title>
+</head>
+
+<style>
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin-top: 40px;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+  }
+
+  .register-container {
+    display: flex;
+    max-width: 1100px;
+    gap: 80px;
+    background-image: url('/productimage/sky1.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .register-form {
+    flex: 1;
+    max-width: 480px;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .register-form h2 {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    width: 130px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: right;
+    margin-right: 15px;
+    color: #2c3e50;
+  }
+
+  .form-group input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: 0.3s ease;
+  }
+
+  .form-group input:focus {
+    background-color: #e0f0ff;
+    border: 1px solid #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+    outline: none;
+  }
+
+  button[type="submit"] {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: transparent;
+    border: 2px solid #2980b9;
+    color: #2980b9;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: center;
+    width: 150px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #297fb96a;
+    color: white;
+  }
+
+  .alert {
+    margin-top: 15px;
+    color: #2980b9;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .vip-info {
+    flex: 1;
+    max-width: 480px;
+    padding: 30px 25px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #333;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .vip-info h3 {
+    font-weight: 600;
+    color: #2980b9;
+    margin-bottom: 20px;
+  }
+
+  .vip-info p {
+    margin-bottom: 15px;
+  }
+
+  .vip-info a {
+    color: #2980b9;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .vip-info a:hover {
+    color: #1f5a86;
+  }
+
+  .center-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .search-form {
+    display: flex;
+    width: 100%;
+    border: 1px solid #17609b0c;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #f0f8ff;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+    color: #333;
+    border-radius: 25px 0 0 25px;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-input::placeholder {
+    color: #888;
+  }
+
+.search-button {
+  margin-bottom: 20px;          /* Reduced margin */
+  padding: 0 10px;              /* Smaller horizontal padding */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  font-size: 14px;              /* Smaller font size */
+  height: 30px;                 /* Set a fixed smaller height */
+  width: 30px;                  /* Fixed width for a square button */
+}
+
+
+  .search-button:hover {
+    background-color: #0f96ea4b;
+  }
+
+/* Menu styling */
+.menu-wrapper {
+    margin-top: 10px;
+}
+
+#menu-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#menu-dropdown {
+    position: absolute;
+    top: 100px;
+    left: 30px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    list-style: none;
+    border-radius: 4px;
+    z-index: 100;
+    width: 200px;
+}
+
+#menu-dropdown li {
+    padding: 12px 20px;
+}
+
+#menu-dropdown li a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#menu-dropdown.hidden {
+    display: none;
+}
+
+  #menu-dropdown li a:hover {
+    background-color: #f0f8ff;
+  }
+
+  @media (max-width: 768px) {
+    .register-container {
+      flex-direction: column;
+      gap: 30px;
+      padding: 30px 15px;
+      margin-top: 150px;
+    }
+    .register-form,
+    .vip-info {
+      max-width: 100%;
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Mom's Art</title>
+</head>
+<body>
+  <div class="header">
+    <!-- Left: Logo + Menu -->
+    <div class="left-group">
+      <div class="logo-container">
+        <a href="/"><img src="/productimage/1.png" alt="Logo" class="logo" /></a>
+      </div>
+      <div class="menu-wrapper">
+        <button id="menu-button" aria-label="Menu" aria-expanded="false" aria-controls="menu-dropdown">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul id="menu-dropdown" class="hidden">
+          <li><a href="/shop?category=Men">Men</a></li>
+        <li><a href="/shop?category=Women">Women</a></li>
+          <li><a href="/register">Register</a></li>
+           <li><a href="/signin">Sign In</a></li>
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/logined">My Account <i class="fa-sharp fa-solid fa-user"></i></a></li>
+          <li><a href="/admin/login">Admin<i class="fas fa-user-shield"></i></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Center: Search bar -->
+    <div class="center-group">
+      <form action="/search" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search..." class="search-input" />
+        <button type="submit" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right: Navbar -->
+    <div class="right-group">
+      <nav id="navbar-container">
+        <ul id="navbar">
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/stores">Stores</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <div class="register-container">
+      <form class="register-form" method="POST" action="/auth/register">
+        <h2>Register</h2>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm">Confirm Password</label>
+          <input type="password" id="passwordConfirm" name="passwordConfirm" required />
+        </div>
+
+        <button type="submit">Register</button>
+
+        {{#if message}}
+          <div class="alert">{{message}}</div>
+        {{/if}}
+      </form>
+
+      <div class="vip-info">
+        <h3>Mom's Art VIP Loyalty Program</h3>
+        <p>Be the first to hear about our latest news and offers and receive <strong>10% off</strong> your purchase every time you shop with us!</p>
+        <p>By becoming a VIP member, I agree to receive marketing communications 
+          from Mom's Art and confirm that I have read and accepted the <a href="/terms">terms and conditions</a> and <a href="/privacyPolicy">Privacy Policy</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuBtn = document.getElementById("menu-button");
+      const menuDropdown = document.getElementById("menu-dropdown");
+
+      menuBtn.addEventListener("click", () => {
+        const isHidden = menuDropdown.classList.contains("hidden");
+        if (isHidden) {
+          menuDropdown.classList.remove("hidden");
+          menuBtn.setAttribute("aria-expanded", "true");
+        } else {
+          menuDropdown.classList.add("hidden");
+          menuBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Close menu if clicking outside
+      document.addEventListener("click", (event) => {
+        if (!menuBtn.contains(event.target) && !menuDropdown.contains(event.target)) {
+          menuDropdown.classList.add("hidden");
+          menuBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
