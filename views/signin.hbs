@@ -1,0 +1,431 @@
+{{>header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mom's Art — Newsletter & Feedback</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    .center-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      margin: 400 auto;
+    }
+
+    .search-form {
+      display: flex;
+      width: 100%;
+      border: 1px solid #17609b0c;
+      overflow: hidden;
+      background-color: #f0f8ff;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background: transparent;
+      color: #333;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-input::placeholder {
+      color: #888;
+    }
+
+    .search-button {
+      margin-top: -45px;
+      margin-left: 370px;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+      font-size: 14px;
+      width: 50px;
+    }
+
+    .search-button:hover {
+      background-color: none;
+    }
+
+    .container,
+    .benefits-container {
+      margin-left: 50px;
+    }
+
+    .form-benefits-wrapper {
+      display: flex;
+      max-width: 1300px;
+      margin: 20px auto;
+      gap: 20px;
+      align-items: stretch;
+      justify-content: center;
+      background-image: url('/productimage/sky1.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 15px;
+      padding: 80px;
+      margin-top: 10px;
+      margin-bottom: 80px;
+    }
+
+    .container {
+      flex: 0.9;
+      max-width: 600px;
+      padding: 20px;
+      background-color: rgba(27, 163, 231, 0.132);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-top: 0px;
+    }
+
+    .benefits-container {
+      flex: 1;
+      max-width: 500px;
+      padding: 20px;
+      background-color: rgba(27, 163, 231, 0.132);
+      justify-content: center;
+      text-align: center;
+      margin-left: 10px;
+      margin-top: 0px;
+    }
+
+    #form-feedback {
+      width: 100%;
+    }
+
+    #form-feedback .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    #form-feedback .form-group label {
+      width: auto;
+      margin-bottom: 8px;
+    }
+
+    #feedback-text {
+      width: 100%;
+      min-height: 140px;
+      box-sizing: border-box;
+    }
+
+    .form-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-toggle button {
+      background: none;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: black;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .form-toggle button.active {
+      border-color: #17609b97;
+      color: #17609b97;
+      font-weight: 600;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    .newsletter-form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #f0f8ff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .newsletter-form h3 {
+      text-align: center;
+      color: #0a8fc0;
+      margin-bottom: 10px;
+    }
+
+    .newsletter-form .description {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-form .form-group {
+      margin-top: 15px;
+    }
+
+    .newsletter-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .newsletter-form input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    label {
+      width: 120px;
+      font-weight: bold;
+      text-align: right;
+      margin-right: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    input, textarea {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button.submit {
+      align-self: center;
+      background-color: #0a8fc089;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      width: auto;
+    }
+
+    button.submit:hover {
+      background-color: #138ebecb;
+    }
+
+    .image-wrapper {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    #benefit-img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .arrow-btn:hover {
+      background-color: rgba(27, 163, 231, 0.735);
+      color: white;
+    }
+
+    .left-arrow { left: 10px; }
+    .right-arrow { right: 10px; }
+
+    /* Responsive Design */
+    body {
+  margin-top: 150px; /* or adjust if your fixed header height is different */
+}
+
+    @media (max-width: 768px) {
+      .form-benefits-wrapper {
+        flex-direction: column;
+        padding: 30px 20px;
+        margin: 20px 10px;
+      }
+
+      .container,
+      .benefits-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 15px;
+      }
+
+      .search-form {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .search-button {
+        margin: 10px 0 20px 0;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-toggle {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .newsletter-form {
+        width: 100%;
+        padding: 15px;
+      }
+
+      button.submit {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+      }
+
+      .arrow-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+      }
+
+      .image-wrapper {
+        width: 100%;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align: center; max-width: 1300px; margin: 20px auto;">
+    <h2 style="color: #0a8fc0; margin-bottom: 10px;">Sign In and Enjoy the Benefits</h2>
+    <p style="font-size: 14px; color: #555;">Access exclusive offers, track your orders, and get personalized recommendations by signing in to your account.</p>
+  </div>
+
+  <div class="form-benefits-wrapper">
+    <!-- LHS: Newsletter & Feedback -->
+    <div class="container">
+      <div class="form-toggle">
+        <button id="btn-newsletter" class="active">Newsletter</button>
+        <button id="btn-feedback">Feedback</button>
+      </div>
+
+      <form id="form-newsletter" class="newsletter-form active">
+        <h3>Subscribe to our Newsletter</h3>
+        <p class="description">Get the latest updates, exclusive offers, and product tips delivered to your inbox.</p>
+        <div class="form-group">
+          <label for="newsletter-email">Email address</label>
+          <input type="email" id="newsletter-email" placeholder="you@example.com" required>
+        </div>
+        <button type="submit" class="submit">Subscribe</button>
+        <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
+      </form>
+
+      <form id="form-feedback">
+        <h3>Send us your Feedback</h3>
+        <div class="form-group" style="flex-direction: column; align-items: flex-start;">
+          <label for="feedback-text" style="width:100%; margin-bottom:8px;">Your thoughts:</label>
+          <textarea id="feedback-text" rows="4" placeholder="Tell us what you think..." required></textarea>
+        </div>
+        <button type="submit" class="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <!-- RHS: Benefits Carousel -->
+    <div class="benefits-container">
+      <h2>Mom's Art Member Benefits</h2>
+      <p>Enjoy the Member Perks</p>
+      <div class="image-wrapper">
+        <img id="benefit-img" src="/productimage/c1.gif" alt="Member Benefits Image" />
+        <button class="arrow-btn left-arrow" onclick="showPrevImage()" aria-label="Previous benefit image">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button class="arrow-btn right-arrow" onclick="showNextImage()" aria-label="Next benefit image">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle Newsletter / Feedback
+    const btnNews = document.getElementById('btn-newsletter');
+    const btnFeed = document.getElementById('btn-feedback');
+    const formNews = document.getElementById('form-newsletter');
+    const formFeed = document.getElementById('form-feedback');
+
+    btnNews.addEventListener('click', () => {
+      btnNews.classList.add('active');
+      btnFeed.classList.remove('active');
+      formNews.classList.add('active');
+      formFeed.classList.remove('active');
+    });
+
+    btnFeed.addEventListener('click', () => {
+      btnFeed.classList.add('active');
+      btnNews.classList.remove('active');
+      formFeed.classList.add('active');
+      formNews.classList.remove('active');
+    });
+
+    // Benefits carousel logic
+    const images = [
+      '/productimage/c1.gif',
+      '/productimage/c2.gif',
+      '/productimage/c3.gif',
+    ];
+    let idx = 0;
+    const imgEl = document.getElementById('benefit-img');
+
+    function showImage(i) {
+      idx = (i + images.length) % images.length;
+      imgEl.src = images[idx];
+    }
+
+    function showPrevImage() { showImage(idx - 1); }
+    function showNextImage() { showImage(idx + 1); }
+  </script>
+</body>
+</html>
+{{>footer}}

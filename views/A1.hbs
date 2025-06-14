@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhutanese Textiles: A Living Cultural Legacy</title>
+  <link rel="stylesheet" href="/css/a3.css">
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      color: #2e2e2e;
+      margin-bottom: 40px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Arial', sans-serif;
+    }
+
+    .main-title {
+  font-size: 2.4rem;
+  color: #003366;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 10px 0 0 10px;
+  margin-bottom: 10px;
+}
+
+    header h1 {
+      font-size: 2.8rem;
+      margin: 0;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      background: white;
+      background-size: cover;
+      max-width: 100%;
+      padding: 0 40px;
+    }
+
+    .content {
+      flex: 3;
+      min-width: 0;
+    }
+
+    aside.recommendations {
+      flex: 1;
+      background: #f0f8ff;
+      padding: 16px;
+      margin-top: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      align-self: flex-start;
+    }
+
+    .recommendation-item {
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .recommendation-item img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      border: 2px solid #ccc;
+    }
+
+    .recommendation-item a {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    section {
+      border-radius: 12px;
+      padding: 30px 30px;
+      margin-bottom: 30px;
+      margin-top: 20px;
+      margin-left: 40px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+      background: url("productimage/sky2.jpg") no-repeat center center;
+      background-size: cover;
+      transition: all 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-3px);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 25px;
+      color: black;
+    }
+
+    p {
+      color: black;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: #b71c1c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #800000;
+    }
+
+    #newsletter {
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      border-radius: 15px;
+      padding: 40px 20px;
+      margin: 60px auto 30px;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .newstext h4 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #003366;
+    }
+
+    .newstext p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .form input {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid #004080;
+      border-radius: 5px;
+      outline: none;
+      width: 60%;
+      min-width: 200px;
+    }
+
+    .form button {
+      padding: 10px 18px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    } .article-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.article-image img {
+  max-width: 90%;
+  height: 70vh;
+  border-radius: 12px;
+  border: 5px solid #f8bbd023;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+    .form button:hover {
+      background-color: #002244;
+    }
+     .highlight {
+      color: rgb(31, 31, 3);
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    ul {
+  padding-left: 25px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 1.8rem;
+    padding: 10px;
+    text-align: center;
+    margin-top: 80px;
+  }
+
+  main {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  section {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .article-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  aside.recommendations {
+    margin-top: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+
+  .recommendation-item img {
+    max-height: 120px;
+  }
+
+  .recommendation-item a {
+    font-size: 0.95rem;
+  }
+
+  #newsletter {
+    padding: 30px 15px;
+    margin: 40px 15px 20px;
+  }
+
+  .newstext h4 {
+    font-size: 1.3rem;
+  }
+
+  .form input {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .form button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  p, li {
+    font-size: 1rem;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .form input, .form button {
+    width: 100%;
+  }
+
+  .article-image img {
+    border-width: 3px;
+  }
+}
+ </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  {{> header}}
+
+  <!-- MAIN TITLE -->
+  <h1 class="main-title">Bhutanese Textiles: A Living Cultural Legacy</h1>
+
+  <!-- MAIN CONTENT LAYOUT -->
+  <main style="display: flex; flex-wrap: wrap; gap: 40px; background: url('productimage/sky1.jpg') no-repeat center center; background-size: cover; max-width: 100%; padding: 0 40px;">
+    
+    <!-- ARTICLE CONTENT -->
+    <div class="content" style="flex: 3; min-width: 0;">
+      
+      <!-- SECTION: Introduction -->
+      <section>
+        <p>Bhutanese textiles encapsulate the rich cultural history and spiritual heart of the Himalayan kingdom. More than just woven fabric, these textiles serve as visual narratives—telling stories of Bhutan's beliefs, history, and way of life through delicate craftsmanship and profound symbolism.</p>
+        <p>Weaving in Bhutan is not merely a craft; it is a revered tradition. At the core of this tradition is <a href="https://www.handicraftsbhutan.org/thagzo-weaving/" target="_blank">Thagzo</a>, the art of Bhutanese textile weaving. Thagzo reflects Bhutan’s vibrant culture and spiritual beliefs through patterns, symbols, and naturally dyed fibers.</p>
+        <p>These textiles are central to religious rituals, festivals, and everyday attire. They preserve a unique visual language that speaks to Bhutan’s mythology and values, continuing to connect generations through thread and tradition.</p>
+      </section>
+
+      <!-- SECTION: Image -->
+      <section>
+        <figure class="article-image">
+          <img src="/productimage/A1.jpg" alt="Traditional Bhutanese Weaving">
+          <figcaption>Bhutanese women weaving intricate patterns by hand — a timeless tradition.</figcaption>
+        </figure>
+      </section>
+
+      <!-- SECTION: Significance -->
+      <section>
+        <h2>Significance of Bhutanese Textiles</h2>
+        <ul>
+          <li><span class="highlight">Spiritual Symbolism:</span> Patterns often reflect Bhutanese Buddhism. Symbols like the <em>Tashi Tagye</em> embody spiritual enlightenment. The <em>Druk</em>, or Thunder Dragon, is a national emblem symbolizing strength and protection.</li>
+          <li><span class="highlight">Cultural Narratives:</span> Designs such as “Pema Lingpa” honor saints and legends, visually preserving Bhutan’s spiritual and historical legacy.</li>
+          <li><span class="highlight">Social Identity:</span> Textile patterns and colors denote social rank, with specific designs reserved for royalty, clergy, or commoners.</li>
+          <li><span class="highlight">Festivals and Rituals:</span> Traditional garments like the <em>Gho</em> and <em>Kira</em> feature intricate patterns used during important ceremonies and events.</li>
+          <li><span class="highlight">Women’s Empowerment:</span> Weaving is a female-led tradition, offering economic freedom and creative expression to Bhutanese women.</li>
+          <li><span class="highlight">National Identity:</span> Traditional patterns remind Bhutanese of their heritage and cultural continuity in a modern world.</li>
+        </ul>
+      </section>
+
+      <!-- SECTION: Appliqué and Embroidery -->
+      <section>
+        <h2>Appliqué and Embroidery: Expressions of Sacred Art</h2>
+        <p>Complementing Thagzo are Bhutan’s rich traditions of appliqué and embroidery. Appliqué involves sewing fabric cut-outs onto a base to form vibrant designs, often for ceremonial and religious items. Embroidery enhances textiles with hand-stitched patterns, adding spiritual symbolism and visual richness.</p>
+      </section>
+
+      <!-- SECTION: Textile Academy -->
+      <section>
+        <h2>Royal Textile Academy of Bhutan</h2>
+        <p>To safeguard this cultural heritage, the <a href="https://www.rtabhutan.org/" target="_blank">Royal Textile Academy of Bhutan</a> acts as both a cultural sanctuary and educational hub. It preserves traditional textile arts while inspiring new generations through galleries, exhibitions, and training programs.</p>
+      </section>
+    </div>
+
+    <!-- SIDEBAR: Recommendations -->
+    <aside class="recommendations">
+  <h3>You may also like</h3>
+
+  <div class="recommendation-item">
+    <a href="/A2">
+      <img src="/productimage/A2.jpeg" alt="Origins of Traditional Dress">
+      <div>Origins of Traditional Dress</div>
+    </a>
+  </div>
+
+  <div class="recommendation-item">
+    <a href="/A3">
+      <img src="/productimage/A3.jpg" alt="Trendy Textile">
+      <div>Trendy Textile</div>
+    </a>
+  </div>
+
+</aside>
+  </main>
+
+  <!-- SECTION: Newsletter -->
+  <section id="newsletter">
+    <div class="newstext">
+      <h4>Join Our Newsletter!</h4>
+      <p>Get E-mail about our latest products and special offers</p>
+    </div>
+    <div class="form">
+      <input type="text" placeholder="Your Email Address">
+      <button>Sign Up</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  {{> footer}}
+</body>
+</html>

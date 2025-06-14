@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head pageTitle="Articles - Traditional Textile Stories"}}
+<body>
+{{> header}}
+
+<main>
+<style>
+  /* Articles page specific styles using CSS variables */
+  .articles-main {
+    padding-top: var(--spacing-lg);
+  }
+
+  /* Hero section */
+  .article-hero {
+    text-align: center;
+    padding: var(--spacing-3xl) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--primary-color), #0e8aa940);
+    color: white;
+    border-radius: var(--border-radius-lg);
+    margin: var(--spacing-lg) auto;
+    max-width: 1200px;
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .article-hero h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-lg);
+    color: white;
+    font-weight: 700;
+  }
+
+  .article-hero p {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Article layout */
+  .article-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    max-width: 1200px;
+    margin: var(--spacing-2xl) auto;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .article-block {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+    background: white;
+    padding: var(--spacing-2xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+  }
+
+  .article-block:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+    border-color: var(--primary-color);
+  }
+
+  .article-block.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .image-container {
+    position: relative;
+    width: 350px;
+    height: 280px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--border-radius-lg);
+    transition: var(--transition);
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .blur-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-lg);
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .card:hover .blur-overlay {
+    opacity: 1;
+  }
+
+  .interaction-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 2;
+  }
+
+  .card:hover .interaction-buttons {
+    opacity: 1;
+  }
+
+  .keyboard-button {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: white;
+    transition: var(--transition);
+  }
+
+  .keyboard-button:hover {
+    background: #1e4080;
+    transform: translateY(-2px);
+  }
+
+  .article-text {
+    flex: 1;
+  }
+
+  .article-text h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--text-dark);
+    margin: 0 0 var(--spacing-lg) 0;
+    font-weight: 700;
+  }
+
+  .article-text p {
+    font-size: var(--font-size-base);
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: var(--spacing-md) 0;
+  }
+
+  .article-title-link {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .article-title-link:hover {
+    color: var(--primary-color);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .article-container {
+      padding: 0 var(--spacing-md);
+    }
+
+    .article-block,
+    .article-block.reverse {
+      flex-direction: column;
+      padding: var(--spacing-xl);
+    }
+
+    .image-container {
+      width: 100%;
+      height: 240px;
+    }
+
+    .article-hero {
+      padding: var(--spacing-2xl) var(--spacing-md);
+      margin: var(--spacing-md);
+    }
+
+    .article-hero h1 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .article-block {
+      padding: var(--spacing-lg);
+    }
+
+    .image-container {
+      height: 200px;
+    }
+
+    .article-hero h1 {
+      font-size: var(--font-size-xl);
+    }
+  }
+</style>
+
+<section class="article-hero">
+  <h1>Discover the Stories Behind Our Handmade Textiles</h1>
+  <p>Every thread tells a story. Dive into the culture, history, and artistry of our traditional fabrics handcrafted by skilled artisans from Bhutan.</p>
+</section>
+
+<section class="article-container">
+  <article class="article-block card">
+    <div class="image-container">
+      <img src="/productimage/A1.jpg" alt="Traditional Bhutanese Attire">
+      <div class="blur-overlay"></div>
+      <div class="interaction-buttons">
+        <a href="/A1"><button class="keyboard-button">Explore</button></a>
+      </div>
+    </div>
+    <div class="article-text">
+      <h2><a href="/A1" class="article-title-link">The Legacy of Bhutanese Weaving</a></h2>
+      <p>Bhutanese textiles are globally renowned for their complexity, vibrant colors, and spiritual significance. Traditionally woven by women using backstrap looms, each piece represents regional patterns and clan identity.</p>
+      <p>Our collection features patterns passed down for generations, woven in naturally dyed yarns and infused with personal symbolism. In rural communities, weaving is more than an art—it’s a form of storytelling.</p>
+    </div>
+  </article>
+
+  <article class="article-block card reverse">
+    <div class="image-container">
+      <img src="/productimage/A2.jpeg" alt="Gho and Kira">
+      <div class="blur-overlay"></div>
+      <div class="interaction-buttons">
+        <a href="/A2"><button class="keyboard-button">Explore</button></a>
+      </div>
+    </div>
+    <div class="article-text">
+      <h2><a href="/A2" class="article-title-link">Origins of Traditional Dress</a></h2>
+      <p>The history of Bhutanese textiles becomes more evident in the last century. As textile production moved beyond clothing to artistic expression of individuals and communities, royal patronage played a vital role.</p>
+      <p>Lhuntse District, home to the most celebrated weavers, is also the ancestral place of the Wangchuck dynasty. The influence of royal women in preserving the weaving tradition is profound.</p>
+    </div>
+  </article>
+
+  <article class="article-block card">
+    <div class="image-container">
+      <img src="/productimage/A3.jpg" alt="Trendy Textile">
+      <div class="blur-overlay"></div>
+      <div class="interaction-buttons">
+        <a href="/A3"><button class="keyboard-button">Explore</button></a>
+      </div>
+    </div>
+    <div class="article-text">
+      <h2><a href="/A3" class="article-title-link">Trendy Textile</a></h2>
+      <p>Visitors to Bhutan often seek unique keepsakes beyond typical souvenirs. Our fashion-focused textiles offer modern aesthetics infused with tradition—perfect for those who want to stand out with style.</p>
+    </div>
+  </article>
+</section>
+
+{{> footer}}
+</main>
+</body>
+</html>

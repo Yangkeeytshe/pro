@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+<header class="header">
+  <!-- Left: Logo + Menu -->
+  
+  <div class="left-group">
+      <div class="menu-wrapper">
+        <button id="menu-button" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul id="menu-dropdown" class="hidden">
+          <li><a href="/shop?category=Men">Men</a></li>
+          <li><a href="/shop?category=Women">Women</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/signin">Sign In</a></li>
+          <li><a href="/articles">Articles</a></li>
+          <li><a href="/logined">My Account <i class="fa-sharp fa-solid fa-user"></i></a></li>
+          <li><a href="/admin/login">Admin<i class="fas fa-user-shield"></i></a></li>
+        </ul>
+      </div>
+    <div class="logo-container">
+      <a href="/"><img src="/productimage/1.png" alt="Logo" class="logo" /></a>
+    </div>
+    </div>
+
+    <!-- Center: Search bar -->
+    <div class="center-group">
+      <form action="/search" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search..." class="search-input" />
+        <button type="submit" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right: Navbar -->
+    <div class="right-group">
+      <nav id="navbar-container">
+        <ul id="navbar">
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/stores">Stores</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="gif-banner">
+  <div class="banner-content"><h2 style="color: white; font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 0.5rem;">
+  Traditional Textiles
+</h2>
+<p style="color: white; font-size: 1.125rem; text-align: center; margin: 0;">
+  Explore the traditions over centuries
+</p>
+<a href="/shop"
+   style="display: inline-block;
+          padding: 6px 12px;
+          font-size: 0.875rem;
+          color: white;
+          background-color: #007bff3f;
+          text-decoration: none;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;"
+   onmouseover="this.style.backgroundColor='#0056b3'"
+   onmouseout="this.style.backgroundColor='#007BFF'">
+   Explore More
+</a>
+
+
+</div>
+</section>
+<div class="place-card"> 
+  <section id="hero-index">
+    <!-- Left section for Women -->
+    <div class="hero-index-text-left">
+      <h2>Handmade Textiles</h2>
+      <p>Styling For Him and Her</p>
+      <p>Fashionable and Trendy Wears</p>
+      <button class="hero-index-button-link">
+        <a href="/shop?shopsort=newest&category=Men">WOMEN</a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </button>
+    </div>
+
+   <div class="hero-index-image">
+    <img src="/productimage/wm.png" alt="Model Image" />
+  </div>
+  <div class="hero-index-text-right">
+    <p>New SPRING SUMMER 2025 Collection Available</p>
+    <button class="hero-index-button-link"><a href="/shop?shopsort=newest&category=Men">MEN</a> <i class="fa-solid fa-bag-shopping"></i></button>
+  </div>
+</section>
+
+<section class="gif-banner2">
+  <div class="banner-content2">
+    <h2>MOM'S ART SPRING COLLECTION</h2>
+    <a href="/shop" class="explore-link">Explore More</a></div>
+</section>
+<section id="product" class="section">
+  <div class="main-content">
+    <div class="section-header">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Jigme Choden Hor Collection</p>
+    </div>
+
+    <div class="pro-container">
+    {{#each products}}
+      <form class="pro" action="/cart/add/{{id}}" method="POST" style="position: relative;">
+        <input type="hidden" name="name" value="{{name}}" />
+        <input type="hidden" name="price" value="{{price}}" />
+        <input type="hidden" name="image" value="{{image}}" />
+
+        <!-- Wishlist Button -->
+        <button type="button" class="wishlist-btn" data-product-id="{{id}}" style="position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.9); border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); z-index: 10;">
+          <i class="far fa-heart" style="color: #666;"></i>
+        </button>
+
+        <a href="/product/{{id}}">
+          <img src="{{image}}" alt="{{name}}" />
+        </a>
+        <div class="des">
+          <h5><a href="/product/{{id}}">{{name}}</a></h5>
+
+          <span>{{category}}</span>
+          <div class="star">
+            {{#each (range 1 5)}}
+            {{/each}}
+          </div>
+          <p>Nu {{price}}</p>
+        </div>
+
+       <button type="submit" class="cart-link" style="background: linear-gradient(135deg, var(--primary-color), #0e8aa940); border: none; color: white;">
+  <i class="fa-solid fa-cart-shopping cart"></i>
+</button>
+
+      </form>
+    {{/each}}
+    </div>
+  </div>
+</section>
+<section id="newsletter">
+  <div class="newstext">
+    <h4>Join Our Newsletter!</h4>
+    <p>Get E-mail about our latest products and special offers</p>
+  </div>
+  <form class="form" action="/subscribe" method="POST">
+    <input type="email" name="email" placeholder="Your Email Address" required />
+    <button type="submit">Sign Up</button>
+  </form>
+</section>
+
+
+
+<footer class="site-footer">
+  <div class="column">
+    <h4>Contact</h4>
+    <p><strong>Address:</strong> 3 Sherab Lam NPPF Colony Phuntsholing</p>
+    <p><strong>Phone:</strong> 097517717070</p>
+    <p><strong>Email:</strong> nedearies@gmail.com</p>
+  </div>
+  <div class="column">
+    <h4>My Account</h4>
+    <a href="/signin">Sign In</a>
+    <a href="/shop">Items and Sizes</a>
+    <a href="/logined">Payment and Invoices</a>
+    <a href="/logined">My Purchases</a>
+  </div>
+
+  <div class="column">
+    <h4>Follow Us</h4>
+    <div class="icon">
+      <i class="fa-brands fa-tiktok"></i>
+      <i class="fa-brands fa-instagram"></i>
+      <i class="fa-brands fa-facebook"></i>
+      <i class="fa-brands fa-square-x-twitter"></i>
+    </div>
+  </div>
+
+  <div class="column">
+    <h4>About Us</h4>
+    <a href="/stores">Stores</a>
+    <a href="/terms">Terms and Condition</a>
+    <a href="privacyPolicy">Privacy Policy</a>
+  </div>
+
+  <div class="column">
+    <img src="/productimage/1.png" class="logo" alt="Footer Logo">
+  </div>
+
+  <div class="copyright">
+    <p>All rights reserved</p>
+  </div>
+</footer>
+</main>
+
+<!-- Include Chatbot Widget -->
+{{> chatbot}}
+
+</body>
+</html>
+<!-- JavaScript Files -->
+<script src="/js/wishlist-manager.js"></script>
+
+<script>
+  const menuBtn = document.getElementById("menu-button");
+  const menuDropdown = document.getElementById("menu-dropdown");
+
+  menuBtn.addEventListener("click", () => {
+    menuDropdown.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+      menuDropdown.classList.add("hidden");
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.wishlist-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        const productId = this.getAttribute('data-product-id');
+        
+        // Optional: Toggle icon style
+        const icon = this.querySelector('i');
+        if (icon.classList.contains('far')) {
+          icon.classList.remove('far');
+          icon.classList.add('fas'); // filled heart
+          icon.style.color = 'red';
+        } else {
+          icon.classList.remove('fas');
+          icon.classList.add('far'); // outline heart
+          icon.style.color = '#666';
+        }
+
+        // Send to backend (optional)
+        fetch(`/wishlist/toggle`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ productId })
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log('Wishlist updated:', data);
+        })
+        .catch(err => {
+          console.error('Wishlist error:', err);
+        });
+      });
+    });
+  });
+</script>

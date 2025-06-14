@@ -1,0 +1,57 @@
+{{> header}}
+
+<style>
+  .success-container {
+    display: flex;
+    justify-content: center;
+    padding: 80px 20px;
+    background-color: #f6f6f6;
+  }
+
+  .success-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    padding: 60px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .success-card h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    color: #000;
+  }
+
+  .success-card p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 32px;
+  }
+
+  .success-card button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .success-card button:hover {
+    background-color: #333;
+  }
+</style>
+
+<div class="success-container">
+  <div class="success-card">
+    <h1>🎉 Payment Successful!</h1>
+    <p>Thank you for your purchase. Your order is being processed.</p>
+    <a href="/shop"><button>Continue Shopping</button></a>
+  </div>
+</div>
+
+{{> footer}}

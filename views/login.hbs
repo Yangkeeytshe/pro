@@ -1,0 +1,412 @@
+{{> header}}
+
+<style>
+  
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+  }
+  
+    .center-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* adjust width as needed */
+  margin: 0 auto;
+}
+
+  .search-form {
+    display: flex;
+    width: 100%;
+    border: 1px solid #17609b0c;
+    overflow: hidden;
+    background-color: #f0f8ff;
+  }
+
+  .search-input {
+
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+    color: #333;
+  }
+
+  .search-input::placeholder {
+    color: #888;
+  }
+.search-button {
+  margin-top: -35px; /* Adjust this value as needed */
+  margin-left: 370px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  display: flex-end;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  width: 50px;
+}
+
+
+  .search-button:hover {
+    background-color: #095d92a2;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .center-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* adjust width as needed */
+  margin: 0 auto;
+}
+
+  .search-form {
+    display: flex;
+    width: 100%;
+    border: 1px solid #17609b0c;
+    overflow: hidden;
+    background-color: #f0f8ff;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-input::placeholder {
+    color: #888;
+  }
+.search-button {
+  margin-top: 0px; /* Adjust this value as needed */
+  margin-right: -10px;
+  margin-bottom: 0px;
+  padding: 0 10px;
+  display: flex-end;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  width: 30px;
+}
+
+  .search-button:hover {
+    background-color
+  }
+  .form-benefits-wrapper {
+    display: flex;
+    max-width: 1100px;
+    margin: 50px auto;
+    gap: 100px;
+    align-items: flex-start;
+    justify-content: center;
+    background-image: url('/productimage/sky1.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    padding: 40px;
+    margin-bottom: 100px;
+    
+  }
+
+  .container {
+    flex: 1;
+    max-width: 500px;
+    padding: 20px;
+    background-color: rgba(27, 163, 231, 0.132);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  h2 {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  h4 {
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 15px;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(27, 180, 231, 0);
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+
+  label {
+    width: 120px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    background-color: #8e2f2f06;
+    border: 1px solid #17609b97;
+    box-shadow: 0px 0px 5px rgba(23, 155, 113, 0.5);
+    outline: none;
+  }
+
+  .form-check {
+    margin: 10px 0;
+  }
+
+  .form-check-label {
+    font-size: 14px;
+    color: #333;
+  }
+
+  a {
+    font-size: 14px;
+    color: #0d3b66;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+.benefits {
+  flex: 1;
+  max-width: 500px; /* Adjust as needed */
+  padding: 20px;
+  background:url("productimage/sky1.jpg");
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 4px;
+}
+
+
+  /* Styled link buttons */
+  .link-button {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #0d3b66;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .link-button:hover {
+    text-decoration: underline;
+  }
+@media (max-width: 768px) {
+  body {
+    margin-top: 200px;
+    padding: 10px;
+  }
+
+  .form-benefits-wrapper {
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+  }
+
+  .container, .benefits {
+    max-width: 100%;
+    width: 100%;
+    box-shadow: none;
+    padding: 20px;
+  }
+
+  label {
+    width: 100px;
+    text-align: left;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+  }
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .search-button {
+    margin: 10px 0 0 0;
+    align-self: flex-end;
+    width: auto;
+  }
+
+  .search-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 8px;
+  }
+
+  .search-input {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 10px;
+  }
+
+  .link-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .benefits p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container h2,
+  .benefits h4 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-check {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .link-button {
+    font-size: 1rem;
+  }
+
+  .benefits {
+    padding: 15px;
+  }
+
+  .form-benefits-wrapper {
+    gap: 20px;
+  }
+}
+
+</style>
+
+<main>
+  <div class="form-benefits-wrapper">
+    <!-- Left: Login Form -->
+    <div class="container">
+      <h2>Customer Login</h2>
+      <form method="POST" action="/auth/login">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="rememberMe" />
+          <label class="form-check-label" for="rememberMe">Remember Me</label>
+        </div>
+
+        <a href="/forgot-password">Forgot Your Password?</a>
+
+        <!-- Sign In as link -->
+        <a href="#" onclick="this.closest('form').submit();" class="link-button">Sign In</a>
+
+        {{#if message}}
+          <h4 class="alert alert-danger mt-4">{{message}}</h4>
+        {{/if}}
+      </form>
+    </div>
+
+    <!-- Right: New Customers / Benefits -->
+    <div class="benefits">
+      <h4>New Customers</h4>
+      <p>Create an account and register to become a Mom's Art VIP to be the first to hear about our latest news and offers.</p>
+      <p>Receive <strong>10% off</strong> your purchase every time you shop with us!</p>
+
+      <!-- Create Account as link -->
+      <a href="/register" class="link-button">Create an Account</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  const menuBtn = document.getElementById("menu-button");
+  const menuDropdown = document.getElementById("menu-dropdown");
+
+  menuBtn?.addEventListener("click", () => {
+    menuDropdown.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menuBtn?.contains(e.target) && !menuDropdown?.contains(e.target)) {
+      menuDropdown?.classList.add("hidden");
+    }
+  });
+</script>
+
+{{> footer}}
