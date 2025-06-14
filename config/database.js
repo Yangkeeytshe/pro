@@ -5,21 +5,22 @@ dotenv.config();
 let db;
 
 if (process.env.JAWSDB_URL) {
-  // ✅ Production - Heroku with JawsDB
+  // ✅ Production - JawsDB on Heroku
   const dbUrl = new URL(process.env.JAWSDB_URL);
 
   db = mysql.createConnection({
     host: dbUrl.hostname,
     user: dbUrl.username,
     password: dbUrl.password,
-    database: dbUrl.pathname.substring(1),
+    database: dbUrl.pathname.replace('/', ''),
     port: 3306,
     ssl: {
-      rejectUnauthorized: true
+      // ✅ Fix for "self-signed certificate" error
+      rejectUnauthorized: false
     }
   });
 } else {
-  // ✅ Development - Local .env settings
+  // ✅ Development - Local DB
   db = mysql.createConnection({
     host: process.env.DB_HOST || '127.0.0.1',
     user: process.env.DB_USER || 'root',
