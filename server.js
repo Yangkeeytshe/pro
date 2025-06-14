@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 const hbsHelpers = require('./utils/helper');
 
 // Import database connection
-const db = require('./config/databse');
+const db = require('./config/database');
 
 // Route modules
 const userRoutes = require('./routes/userRoutes');
